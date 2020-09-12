@@ -14,6 +14,8 @@ const { isProd } = require("./src/utils/env");
 const { SESSION_SECRET_KEY } = require("./src/conf/secretKeys");
 
 // const index = require('./src/routes/index')
+const squareAPIRouter = require('./src/routes/api/blog-square')
+const profileAPIRouter = require('./src/routes/api/blog-profile')
 const homeAPIRouter = require("./src/routes/api/blog-home");
 const blogViewRouter = require("./src/routes/view/blog");
 const utilsAPIRouter = require("./src/routes/api/utils");
@@ -61,6 +63,8 @@ app.use(
 );
 
 // routes
+app.use(squareAPIRouter.routes(), squareAPIRouter.allowedMethods());
+app.use(profileAPIRouter.routes(), profileAPIRouter.allowedMethods());
 app.use(homeAPIRouter.routes(), homeAPIRouter.allowedMethods());
 app.use(blogViewRouter.routes(), blogViewRouter.allowedMethods());
 app.use(utilsAPIRouter.routes(), utilsAPIRouter.allowedMethods());
