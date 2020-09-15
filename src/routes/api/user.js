@@ -11,6 +11,7 @@ const {
   changePassword,
   logout
 } = require("../../controller/user");
+const { getFollowers } = require("../../controller/user-relation");
 const genValidator = require("../../middlewares/validator");
 const userValidate = require("../../validator/user");
 const { loginCheck } = require("../../middlewares/loginChecks");
@@ -71,8 +72,20 @@ router.patch(
   }
 );
 
+// 退出登录
 router.post("/logout", loginCheck, async (ctx, next) => {
   ctx.body = await logout(ctx);
+});
+
+// 获取 at 列表， 即 关注人列表
+router.get("/getAtList", loginCheck, async (ctx, next) => {
+  const { id: userId } = ctx.session.userInfo;
+  const result = await getFollowers(userId);
+  const { followersList } = result.data;
+  const list = followersList.map(user => {
+    return `${user.nickName} - ${user.userName}`;
+  });
+  ctx.body = list;
 });
 
 module.exports = router;
