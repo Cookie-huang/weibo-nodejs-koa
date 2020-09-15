@@ -13,9 +13,9 @@ const { REDIS_CONF } = require("./src/conf/db");
 const { isProd } = require("./src/utils/env");
 const { SESSION_SECRET_KEY } = require("./src/conf/secretKeys");
 
-// const index = require('./src/routes/index')
-const squareAPIRouter = require('./src/routes/api/blog-square')
-const profileAPIRouter = require('./src/routes/api/blog-profile')
+const atAPIRouter = require("./src/routes/api/blog-at");
+const squareAPIRouter = require("./src/routes/api/blog-square");
+const profileAPIRouter = require("./src/routes/api/blog-profile");
 const homeAPIRouter = require("./src/routes/api/blog-home");
 const blogViewRouter = require("./src/routes/view/blog");
 const utilsAPIRouter = require("./src/routes/api/utils");
@@ -63,6 +63,7 @@ app.use(
 );
 
 // routes
+app.use(atAPIRouter.routes(), atAPIRouter.allowedMethods());
 app.use(squareAPIRouter.routes(), squareAPIRouter.allowedMethods());
 app.use(profileAPIRouter.routes(), profileAPIRouter.allowedMethods());
 app.use(homeAPIRouter.routes(), homeAPIRouter.allowedMethods());
@@ -70,7 +71,7 @@ app.use(blogViewRouter.routes(), blogViewRouter.allowedMethods());
 app.use(utilsAPIRouter.routes(), utilsAPIRouter.allowedMethods());
 app.use(userAPIRouter.routes(), userAPIRouter.allowedMethods());
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods());
-app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods());
+app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods()); // 404 路由注册到最后面
 
 // error-handling
 app.on("error", (err, ctx) => {
