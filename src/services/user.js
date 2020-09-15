@@ -4,6 +4,7 @@
 
 const { User } = require("../db/model/index");
 const { formatUser } = require("./_format");
+const { addFollower } = require("./user-relation");
 
 /**
  *
@@ -34,6 +35,13 @@ async function getUserInfo(userName, password) {
   return formatRes;
 }
 
+/**
+ * 创建用户
+ * @param {string} userName 用户名
+ * @param {string} password 密码
+ * @param {number} gender 性别
+ * @param {string} nickName 昵称
+ */
 async function createUser({ userName, password, gender = 3, nickName }) {
   const result = await User.create({
     userName,
@@ -42,6 +50,9 @@ async function createUser({ userName, password, gender = 3, nickName }) {
     gender
   });
   const data = result.dataValues;
+
+  // 自己关注自己 （为了方便首页获取数据）
+  addFollower(data.id, data.id);
 
   return data;
 }
