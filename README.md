@@ -1,7 +1,7 @@
 - # 技术方案
 
-  ![](//note.youdao.com/yws/res/398/4EEB8BB9AFF7497F91EC3854F416A166)
-  ![](//note.youdao.com/yws/res/1675/WEBRESOURCEfd78f0f5cb46a963b38e05e3bf2b8eaf)
+  ![](https://github.com/Cookie-huang/weibo-nodejs-koa/blob/master/public/image/design.png)
+  ![](https://github.com/Cookie-huang/weibo-nodejs-koa/blob/master/public/image/dbTable.png)
 
 - # 开发
 
